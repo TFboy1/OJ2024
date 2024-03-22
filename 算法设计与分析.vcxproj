@@ -133,6 +133,8 @@
     <ClCompile Include="P1138 American Heritage.cpp" />
     <ClCompile Include="P1173 Web Navigation.cpp" />
     <ClCompile Include="P1305 素数环.cpp" />
+    <ClCompile Include="P1395 全排列2.cpp" />
+    <ClCompile Include="P1395 全排列2调库版.cpp" />
     <ClCompile Include="P1679 夏日旅行.cpp" />
     <ClCompile Include="P1821 二叉树的深度递归版.cpp" />
     <ClCompile Include="P1821 二叉树的深度暴力求解版.cpp" />

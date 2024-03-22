@@ -45,5 +45,11 @@
     <ClCompile Include="B4809 皇后.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="P1395 全排列2.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="P1395 全排列2调库版.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
