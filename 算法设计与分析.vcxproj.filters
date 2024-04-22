@@ -96,5 +96,11 @@
     <ClCompile Include="P1848 编辑距离.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="P1818 饼干.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="P1870 地道战.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
