@@ -135,9 +135,24 @@
     <ClCompile Include="P1305 素数环.cpp" />
     <ClCompile Include="P1395 全排列2.cpp" />
     <ClCompile Include="P1395 全排列2调库版.cpp" />
+    <ClCompile Include="P1475 智力大冲浪.cpp" />
+    <ClCompile Include="P1635 月饼.cpp" />
     <ClCompile Include="P1679 夏日旅行.cpp" />
+    <ClCompile Include="P1748 a+b+c+d==0.cpp" />
+    <ClCompile Include="P1791 小黑的数字.cpp" />
+    <ClCompile Include="P1791 小黑的数字暴力破解版.cpp" />
+    <ClCompile Include="P1809 wzy的跑步.cpp" />
     <ClCompile Include="P1821 二叉树的深度递归版.cpp" />
     <ClCompile Include="P1821 二叉树的深度暴力求解版.cpp" />
+    <ClCompile Include="P1848 编辑距离.cpp" />
+    <ClCompile Include="P1854 Children%27s Game.cpp" />
+    <ClCompile Include="P1855 接水问题.cpp" />
+    <ClCompile Include="P1855 接水问题暴力版.cpp" />
+    <ClCompile Include="P1901 最长相邻互质子序列.cpp" />
+    <ClCompile Include="P1911 纸币.cpp" />
+    <ClCompile Include="P1971 叠加超级buff.cpp" />
+    <ClCompile Include="P1971 叠加超级buff暴力版.cpp" />
+    <ClCompile Include="P1972 地牢夺宝奇兵.cpp" />
     <ClCompile Include="课堂练习.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

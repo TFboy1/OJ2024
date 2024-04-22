@@ -70,12 +70,12 @@
 //            return false;
 //        }
 //    }
-//    // 检查同一行是否有皇后
-//    for (int j = 0; j < col; j++) {
-//        if (board[row][j] == 2) {
-//            return false;
-//        }
-//    }
+//    //// 检查同一行是否有皇后
+//    //for (int j = 0; j < col; j++) {
+//    //    if (board[row][j] == 2) {
+//    //        return false;
+//    //    }
+//    //}
 //    // 检查左上对角线是否有皇后
 //    for (int i = row, j = col; i >= 0 && j >= 0; i--, j--) {
 //        if (board[i][j] == 2) {
