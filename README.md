@@ -9,3 +9,5 @@
 [Zha0jh/LevOJ: 南京信息工程大学oj不完全代码 (github.com)](https://github.com/Zha0jh/LevOJ)
 
 [CtrlMinder/LevOJ: OJ代码 (github.com)](https://github.com/CtrlMinder/LevOJ)
+
+[TFboy1/NUIST-Online-Judge-OJ-: NUIST2022OJ题库及答案（持续更新） (github.com)](https://github.com/TFboy1/NUIST-Online-Judge-OJ-)
