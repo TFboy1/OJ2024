@@ -155,6 +155,7 @@
     <ClCompile Include="P1971 叠加超级buff.cpp" />
     <ClCompile Include="P1971 叠加超级buff暴力版.cpp" />
     <ClCompile Include="P1972 地牢夺宝奇兵.cpp" />
+    <ClCompile Include="吃豆人.cpp" />
     <ClCompile Include="课堂练习.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

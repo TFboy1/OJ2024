@@ -102,5 +102,8 @@
     <ClCompile Include="P1870 地道战.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="吃豆人.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

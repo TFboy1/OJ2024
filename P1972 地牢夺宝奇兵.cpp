@@ -154,3 +154,98 @@
 //
 //    return 0;
 //}
+//
+#include <iostream>
+#include <stack>
+
+using namespace std;
+
+// 定义地牢的结构体
+struct Dungeon {
+public:
+    int M, N;
+    char grid[50][50];
+    bool visited[50][50];
+};
+
+// 定义节点结构体，用于存储DFS中的状态信息
+struct Node {
+    int x, y, health;
+    Node(int _x, int _y, int _health) : x(_x), y(_y), health(_health) {}
+};
+
+// DFS函数，用于搜索是否存在可行路径
+bool dfs( Dungeon& dungeon) {
+    int M = dungeon.M, N = dungeon.N;
+    stack<Node> stk;
+    stk.push(Node(0, 0, 3));
+
+    while (!stk.empty()) {
+        Node node = stk.top();
+        stk.pop();
+        int x = node.x, y = node.y, health = node.health;
+
+        // 如果当前位置为终点，则返回true
+        if (x == M - 1 && y == N - 1) {
+            return true;
+        }
+
+        // 如果当前位置越界、为不可通行的特殊地块、血量降到0以下或者已经访问过，则跳过当前节点
+        if (x < 0 || x >= M || y < 0 || y >= N || dungeon.grid[x][y] == 'W' || health <= 0 || dungeon.visited[x][y]) {
+            continue;
+        }
+
+        // 标记当前节点已经访问过
+        dungeon.visited[x][y] = true;
+
+        // 如果当前位置为可通行的陷阱地块，则减少一点血量
+        if (dungeon.grid[x][y] == 'X') {
+            health--;
+        }
+
+        // 向上下左右四个方向进行搜索，并将符合条件的节点入栈
+        stk.push(Node(x - 1, y, health));
+        stk.push(Node(x + 1, y, health));
+        stk.push(Node(x, y - 1, health));
+        stk.push(Node(x, y + 1, health));
+    }
+
+    // 如果栈为空，仍未找到终点，则返回false
+    return false;
+}
+
+int main() {
+    int K, M, N;
+    cin >> K >> M >> N;
+
+    // 依次处理每个地牢
+    for (int k = 0; k < K; ++k) {
+        Dungeon dungeon;
+        dungeon.M = M;
+        dungeon.N = N;
+
+        // 初始化visited数组
+        for (int i = 0; i < M; ++i) {
+            for (int j = 0; j < N; ++j) {
+                dungeon.visited[i][j] = false;
+            }
+        }
+
+        // 读取地牢信息
+        for (int i = 0; i < M; ++i) {
+            for (int j = 0; j < N; ++j) {
+                cin >> dungeon.grid[i][j];
+            }
+        }
+
+        // 如果DFS搜索成功，则输出YES，否则输出NO
+        if (dfs(dungeon)) {
+            cout << "YES" << endl;
+        }
+        else {
+            cout << "NO" << endl;
+        }
+    }
+
+    return 0;
+}
