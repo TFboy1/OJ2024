@@ -2,6 +2,8 @@
 //#include <climits>
 //#include <cstdlib>
 //#include <utility>
+//#include<queue>
+//
 //#define endl '\n'
 //#define int long long
 //using namespace std;
@@ -167,47 +169,67 @@
 //    你的策略
 //    如果你需要写递归，可以在solve函数之前添加你的递归函数并在solve函数中调用。
 //*/
-//char solve()
-//{
-//    // 寻找最近的豆子作为目标
-//    pair<int, int> target;
-//    int minDist = INT_MAX;
 //
-//    for (int i = 1; i <= 20; ++i) {
-//        for (int j = 1; j <= 40; ++j) {
-//            if (a[i][j] == 2) {
-//                int dist = abs(person_x - i) + abs(person_y - j); // 曼哈顿距离
-//                if (dist < minDist) {
-//                    minDist = dist;
-//                    target = { i, j };
-//                }
+//
+//// 检查给定坐标是否有效且可访问
+//bool isValid(int x, int y, int a[21][41]) {
+//    return x >= 1 && x <= 20 && y >= 1 && y <= 40 && a[x][y] != 4;
+//}
+//
+//// BFS搜索最近的豆子，同时考虑鬼魂的当前位置
+//std::pair<int, int> findNearestBean(int person_x, int person_y, int a[21][41], std::pair<int, int> ghost) {
+//    std::queue<std::pair<int, int>> q;
+//    bool visited[21][41] = { false };
+//    int dx[4] = { -1, 1, 0, 0 }; // 上、下、左、右
+//    int dy[4] = { 0, 0, -1, 1 };
+//
+//    q.push({ person_x, person_y });
+//    visited[person_x][person_y] = true;
+//
+//    while (!q.empty()) {
+//        auto curr = q.front(); q.pop();
+//        int x = curr.first, y = curr.second;
+//
+//        // 如果找到豆子，返回位置
+//        if (a[x][y] == 2) return curr;
+//
+//        for (int i = 0; i < 4; ++i) {
+//            int nx = x + dx[i], ny = y + dy[i];
+//            // 避免撞到鬼魂
+//            if (nx == ghost.first && ny == ghost.second) continue;
+//            if (isValid(nx, ny, a) && !visited[nx][ny]) {
+//                visited[nx][ny] = true;
+//                q.push({ nx, ny });
 //            }
 //        }
 //    }
 //
-//    // 根据目标位置和当前位置的关系选择最佳移动方向
-//    int tx = target.first;
-//    int ty = target.second;
-//
-//    // 如果目标位置和当前位置相同，返回停留
-//    if (tx == person_x && ty == person_y) return 'S';
-//
-//    // 如果有鬼在附近，并且距离吃豆人更近，优先选择远离鬼的方向移动
-//    if (a[person_x - 1][person_y] == 8 && abs(person_x - 1 - tx) < abs(person_x - tx) && a[person_x - 1][person_y] != 4) return 'U';
-//    if (a[person_x + 1][person_y] == 8 && abs(person_x + 1 - tx) < abs(person_x - tx) && a[person_x + 1][person_y] != 4) return 'D';
-//    if (a[person_x][person_y - 1] == 8 && abs(person_y - 1 - ty) < abs(person_y - ty) && a[person_x][person_y - 1] != 4) return 'L';
-//    if (a[person_x][person_y + 1] == 8 && abs(person_y + 1 - ty) < abs(person_y - ty) && a[person_x][person_y + 1] != 4) return 'R';
-//
-//    // 否则根据目标位置和当前位置的关系选择最佳移动方向，确保不会走进墙壁
-//    if (tx < person_x && a[person_x - 1][person_y] != 4 && (a[person_x - 1][person_y] != 8 || a[person_x - 1][person_y] == 8 && a[person_x - 2][person_y] != 4)) return 'U';
-//    if (tx > person_x && a[person_x + 1][person_y] != 4 && (a[person_x + 1][person_y] != 8 || a[person_x + 1][person_y] == 8 && a[person_x + 2][person_y] != 4)) return 'D';
-//    if (ty < person_y && a[person_x][person_y - 1] != 4 && (a[person_x][person_y - 1] != 8 || a[person_x][person_y - 1] == 8 && a[person_x][person_y - 2] != 4)) return 'L';
-//    if (ty > person_y && a[person_x][person_y + 1] != 4 && (a[person_x][person_y + 1] != 8 || a[person_x][person_y + 1] == 8 && a[person_x][person_y + 2] != 4)) return 'R';
-//
-//    // 如果无法移动到目标位置，返回停留
-//    return 'S';
+//    // 如果没有找到豆子，返回{-1, -1}
+//    return { -1, -1 };
 //}
+//char solve() {
+//    // 假设只有一个鬼魂
+//    std::pair<int, int> ghost = preghost1;
 //
+//    auto target = findNearestBean(person_x, person_y, a, ghost);
+//
+//    // 如果没有找到豆子，随机移动
+//    if (target.first == -1 && target.second == -1) {
+//        int op = my_rand(1, 4);
+//        return op == 1 ? 'U' : op == 2 ? 'D' : op == 3 ? 'R' : 'L';
+//    }
+//
+//    // 计算吃豆人应该移动的方向
+//    int dx = target.first - person_x;
+//    int dy = target.second - person_y;
+//
+//    if (abs(dx) > abs(dy)) {
+//        return dx > 0 ? 'D' : 'U';
+//    }
+//    else {
+//        return dy > 0 ? 'R': 'L';
+//    }
+//}
 //
 //signed main() {
 //

@@ -2,6 +2,7 @@
 //#include <climits>
 //#include <cstdlib>
 //#include <utility>
+//#include <queue>
 //#define endl '\n'
 //#define int long long
 //using namespace std;
@@ -169,45 +170,89 @@
 //*/
 //char solve()
 //{
-//    // 寻找最近的豆子作为目标
-//    pair<int, int> target;
-//    int minDist = INT_MAX;
+//    // 创建一个队列用于BFS
+//    queue<pair<int, int>> q;
 //
-//    for (int i = 1; i <= 20; ++i) {
-//        for (int j = 1; j <= 40; ++j) {
-//            if (a[i][j] == 2) {
-//                int dist = abs(person_x - i) + abs(person_y - j); // 曼哈顿距离
-//                if (dist < minDist) {
-//                    minDist = dist;
-//                    target = { i, j };
-//                }
+//    // 创建一个数组用于标记已经访问过的位置
+//    bool visited[N][N] = { false };
+//
+//    // 创建一个数组用于记录到达每个位置的最短路径
+//    int distance[N][N] = { 0 };
+//
+//    // 标记当前位置为已访问
+//    visited[person_x][person_y] = true;
+//
+//    // 将当前位置加入队列
+//    q.push({ person_x, person_y });
+//
+//    // 定义四个方向
+//    int dx[] = { -1, 1, 0, 0 };
+//    int dy[] = { 0, 0, -1, 1 };
+//
+//    // 寻找最近的豆子
+//    pair<int, int> nearestBean;
+//    int minDistance = INT_MAX;
+//
+//    while (!q.empty()) {
+//        // 取出队列中的第一个位置
+//        pair<int, int> current = q.front();
+//        q.pop();
+//
+//        // 检查当前位置是否是豆子
+//        if (a[current.first][current.second] == 2) {
+//            minDistance = distance[current.first][current.second];
+//            nearestBean = current;
+//            break; // 找到最近的豆子后停止搜索
+//        }
+//
+//        // 遍历四个方向
+//        for (int i = 0; i < 4; ++i) {
+//            int nx = current.first + dx[i];
+//            int ny = current.second + dy[i];
+//
+//            // 检查下一个位置是否合法
+//            if (nx >= 1 && nx <= szx && ny >= 1 && ny <= szy && !visited[nx][ny] && a[nx][ny] != 4) {
+//                // 标记下一个位置为已访问，并计算到达该位置的路径长度
+//                visited[nx][ny] = true;
+//                distance[nx][ny] = distance[current.first][current.second] + 1;
+//                q.push({ nx, ny });
 //            }
 //        }
 //    }
 //
-//    // 根据目标位置和当前位置的关系选择最佳移动方向
-//    int tx = target.first;
-//    int ty = target.second;
+//    // 如果没有找到豆子，返回停留
+//    if (minDistance == INT_MAX) return 'S';
 //
-//    // 如果目标位置和当前位置相同，返回停留
-//    if (tx == person_x && ty == person_y) return 'S';
+//    // 如果已经站在豆子上，则停留
+//    if (nearestBean.first == person_x && nearestBean.second == person_y) return 'S';
 //
-//    // 如果有鬼在附近，并且距离吃豆人更近，优先选择远离鬼的方向移动
-//    if (a[person_x - 1][person_y] == 8 && abs(person_x - 1 - tx) < abs(person_x - tx) && a[person_x - 1][person_y] != 4) return 'U';
-//    if (a[person_x + 1][person_y] == 8 && abs(person_x + 1 - tx) < abs(person_x - tx) && a[person_x + 1][person_y] != 4) return 'D';
-//    if (a[person_x][person_y - 1] == 8 && abs(person_y - 1 - ty) < abs(person_y - ty) && a[person_x][person_y - 1] != 4) return 'L';
-//    if (a[person_x][person_y + 1] == 8 && abs(person_y + 1 - ty) < abs(person_y - ty) && a[person_x][person_y + 1] != 4) return 'R';
+//    // 计算到两个鬼的距离
+//    int distanceGhost1 = abs(person_x - preghost1.first) + abs(person_y - preghost1.second);
+//    int distanceGhost2 = abs(person_x - preghost2.first.first) + abs(person_y - preghost2.first.second);
+//    distanceGhost2 = min(distanceGhost2, abs(person_x - preghost2.second.first) + abs(person_y - preghost2.second.second));
 //
-//    // 否则根据目标位置和当前位置的关系选择最佳移动方向，确保不会走进墙壁
-//    if (tx < person_x && a[person_x - 1][person_y] != 4 && (a[person_x - 1][person_y] != 8 || a[person_x - 1][person_y] == 8 && a[person_x - 2][person_y] != 4)) return 'U';
-//    if (tx > person_x && a[person_x + 1][person_y] != 4 && (a[person_x + 1][person_y] != 8 || a[person_x + 1][person_y] == 8 && a[person_x + 2][person_y] != 4)) return 'D';
-//    if (ty < person_y && a[person_x][person_y - 1] != 4 && (a[person_x][person_y - 1] != 8 || a[person_x][person_y - 1] == 8 && a[person_x][person_y - 2] != 4)) return 'L';
-//    if (ty > person_y && a[person_x][person_y + 1] != 4 && (a[person_x][person_y + 1] != 8 || a[person_x][person_y + 1] == 8 && a[person_x][person_y + 2] != 4)) return 'R';
+//    // 如果鬼距离很近，优先远离鬼的方向移动
+//    if (distanceGhost1 <= 2 || distanceGhost2 <= 2) {
+//        if (nearestBean.first < person_x && a[person_x - 1][person_y] != 4) return 'U';
+//        if (nearestBean.first > person_x && a[person_x + 1][person_y] != 4) return 'D';
+//        if (nearestBean.second < person_y && a[person_x][person_y - 1] != 4) return 'L';
+//        if (nearestBean.second > person_y && a[person_x][person_y + 1] != 4) return 'R';
+//    }
+//
+//    // 向最近的豆子移动，确保不会走进墙壁
+//    if (nearestBean.first != person_x) {
+//        if (nearestBean.first < person_x && a[person_x - 1][person_y] != 4) return 'U';
+//        if (nearestBean.first > person_x && a[person_x + 1][person_y] != 4) return 'D';
+//    }
+//
+//    if (nearestBean.second != person_y) {
+//        if (nearestBean.second < person_y && a[person_x][person_y - 1] != 4) return 'L';
+//        if (nearestBean.second > person_y && a[person_x][person_y + 1] != 4) return 'R';
+//    }
 //
 //    // 如果无法移动到目标位置，返回停留
 //    return 'S';
 //}
-//
 //
 //signed main() {
 //
