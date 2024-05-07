@@ -1,73 +1,62 @@
+///*
+// * @Description: To iterate is human, to recurse divine.
+// * @Autor: Recursion
+// * @Date: 2022-06-08 18:59:29
+// * @LastEditTime: 2022-06-08 21:46:05
+// */
+// /*
+//  * @Description: To iterate is human, to recurse divine.
+//  * @Autor: Recursion
+//  * @Date: 2022-06-08 18:59:29
+//  * @LastEditTime: 2022-06-08 20:47:14
+//  */
 //#include <iostream>
-//#include <vector>
-//#include <queue>
-//#include <limits>
-//
+//#include<cstring>
+//#define LL long long 
 //using namespace std;
 //
-//const int INF = numeric_limits<int>::max();
+//const int INF = 1e9 + 10;
+//const int N = 1e3 + 7;
+//int a[N][N];
 //
-//struct Edge {
-//    int to, weight;
-//    Edge(int t, int w) : to(t), weight(w) {}
-//};
+//int C, S, Q;
+//int u, v, w;
 //
-//vector<vector<Edge>> graph;
-//vector<int> dijkstra(int start) {
-//    int n = graph.size();
-//    vector<int> dist(n, INF);
-//    vector<int> maxNoise(n, 0); // 记录路径中的最大噪声值
-//    dist[start] = 0;
-//    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
-//    pq.push({ 0, start });
+//int main()
+//{
 //
-//    while (!pq.empty()) {
-//        int u = pq.top().second;
-//        int d = pq.top().first;
-//        pq.pop();
+//    int count = 0;
+//    while (cin >> C >> S >> Q) {
+//        count++;
+//        memset(a, 0, sizeof(a));
+//        for (int i = 1; i <= C; i++)
+//            for (int j = 1; j <= C; j++)
+//                if (i != j)
+//                    a[i][j] = INF;
+//        while (S--) {
+//            cin >> u >> v >> w;
+//            a[u][v] = w;
+//            a[v][u] = w;
+//        }
+//        for (int k = 1; k <= C; k++)
+//            for (int i = 1; i <= C; i++)
+//                for (int j = 1; j <= C; j++)
 //
-//        if (d > dist[u]) continue;
+//                    a[i][j] = min(a[i][j], max(a[i][k], a[k][j]));
+//        cout << "Case #" << count << endl;
+//        while (Q--) {
+//            int x, y;
+//            cin >> x >> y;
 //
-//        for (const Edge& e : graph[u]) {
-//            int v = e.to;
-//            int w = e.weight;
-//
-//            if (max(dist[u], w) < dist[v]) {
-//                dist[v] = max(dist[u], w);
-//                maxNoise[v] = max(maxNoise[u], w); // 更新最大噪声值
-//                pq.push({ dist[v], v });
+//            if (a[x][y] == INF) {
+//                cout << "no path" << endl;
+//                continue;
 //            }
+//            else
+//                cout << a[x][y] << endl;
 //        }
 //    }
 //
-//    return maxNoise;
-//}
-//
-//int main() {
-//    int C, S, Q;
-//    cin >> C >> S >> Q;
-//
-//    graph.resize(C + 1);
-//
-//    for (int i = 0; i < S; ++i) {
-//        int u, v, w;
-//        cin >> u >> v >> w;
-//        graph[u].emplace_back(v, w);
-//        graph[v].emplace_back(u, w); // 无向图
-//    }
-//
-//    vector<int> maxNoise = dijkstra(1);
-//
-//    for (int i = 0; i < Q; ++i) {
-//        int a, b;
-//        cin >> a >> b;
-//        if (maxNoise[b] == 0) {
-//            cout << "no path" << endl;
-//        }
-//        else {
-//            cout << maxNoise[b] << endl;
-//        }
-//    }
 //
 //    return 0;
 //}

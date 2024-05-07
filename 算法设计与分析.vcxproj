@@ -127,9 +127,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="B1631 [Usaco2007 Feb]Cow Party.cpp" />
     <ClCompile Include="B3445 [Usaco2014 Feb] Roadblock.cpp" />
     <ClCompile Include="P1204 电池的寿命.cpp" />
     <ClCompile Include="P1357 食物链%28一%29.cpp" />
+    <ClCompile Include="P1719 Let%27s play a game!.cpp" />
     <ClCompile Include="P1740 Ink on paper.cpp" />
     <ClCompile Include="P1743 Audiophobia.cpp" />
     <ClCompile Include="P1763 friendly group.cpp" />

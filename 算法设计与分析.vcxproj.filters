@@ -147,5 +147,11 @@
     <ClCompile Include="单词接龙.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="P1719 Let%27s play a game!.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="B1631 [Usaco2007 Feb]Cow Party.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

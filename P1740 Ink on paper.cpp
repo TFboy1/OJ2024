@@ -1,77 +1,62 @@
+///*
+// * @Description: To iterate is human, to recurse divine.
+// * @Autor: Recursion
+// * @Date: 2022-06-08 18:59:29
+// * @LastEditTime: 2022-06-08 21:46:05
+// */
+// /*
+//  * @Description: To iterate is human, to recurse divine.
+//  * @Autor: Recursion
+//  * @Date: 2022-06-08 18:59:29
+//  * @LastEditTime: 2022-06-08 20:47:14
+//  */
 //#include <iostream>
-//#include <vector>
-//#include <cmath>
-//#include <algorithm>
-//
+//#include<cstring>
+//#define LL long long 
 //using namespace std;
 //
-//struct Ink {
-//    int x, y;
-//};
+//const int INF = 1e9 + 10;
+//const int N = 1e3 + 7;
+//int a[N][N];
 //
-//vector<int> parent;
+//int C, S, Q;
+//int u, v, w;
 //
-//int find(int u) {
-//    if (parent[u] == u)
-//        return u;
-//    return parent[u] = find(parent[u]);
-//}
+//int main()
+//{
 //
-//void unite(int u, int v) {
-//    int rootU = find(u);
-//    int rootV = find(v);
-//    if (rootU != rootV)
-//        parent[rootU] = rootV;
-//}
+//    int count = 0;
+//    while (cin >> C >> S >> Q) {
+//        count++;
+//        memset(a, 0, sizeof(a));
+//        for (int i = 1; i <= C; i++)
+//            for (int j = 1; j <= C; j++)
+//                if (i != j)
+//                    a[i][j] = INF;
+//        while (S--) {
+//            cin >> u >> v >> w;
+//            a[u][v] = w;
+//            a[v][u] = w;
+//        }
+//        for (int k = 1; k <= C; k++)
+//            for (int i = 1; i <= C; i++)
+//                for (int j = 1; j <= C; j++)
 //
-//double distance(const Ink& a, const Ink& b) {
-//    int dx = a.x - b.x;
-//    int dy = a.y - b.y;
-//    return sqrt(dx * dx + dy * dy);
-//}
+//                    a[i][j] = min(a[i][j], max(a[i][k], a[k][j]));
+//        cout << "Case #" << count << endl;
+//        while (Q--) {
+//            int x, y;
+//            cin >> x >> y;
 //
-//double squareTimeToConnect(int n, vector<Ink>& inks) {
-//    vector<pair<double, pair<int, int>>> edges;
-//    for (int i = 0; i < n; ++i) {
-//        for (int j = i + 1; j < n; ++j) {
-//            edges.push_back({ distance(inks[i], inks[j]), {i, j} });
+//            if (a[x][y] == INF) {
+//                cout << "no path" << endl;
+//                continue;
+//            }
+//            else
+//                cout << a[x][y] << endl;
 //        }
 //    }
 //
-//    sort(edges.begin(), edges.end());
-//
-//    parent.resize(n);
-//    for (int i = 0; i < n; ++i) {
-//        parent[i] = i;
-//    }
-//
-//    double maxWeight = 0.0;
-//    for (const auto& edge : edges) {
-//        int from = edge.second.first;
-//        int to = edge.second.second;
-//        if (find(from) != find(to)) {
-//            unite(from, to);
-//            maxWeight = max(maxWeight, edge.first);
-//        }
-//    }
-//
-//    return maxWeight * maxWeight;
-//}
-//
-//int main() {
-//    int T;
-//    cin >> T;
-//
-//    while (T--) {
-//        int n;
-//        cin >> n;
-//        vector<Ink> inks(n);
-//        for (int i = 0; i < n; ++i) {
-//            cin >> inks[i].x >> inks[i].y;
-//        }
-//
-//        cout << fixed << squareTimeToConnect(n, inks) << endl;
-//    }
 //
 //    return 0;
 //}
