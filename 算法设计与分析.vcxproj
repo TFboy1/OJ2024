@@ -171,6 +171,7 @@
     <ClCompile Include="吃豆人.cpp" />
     <ClCompile Include="吃豆人改进版4.cpp" />
     <ClCompile Include="吃豆人改进版3.cpp" />
+    <ClCompile Include="吃豆人改进版5.cpp" />
     <ClCompile Include="糖豆人改进版2.cpp" />
     <ClCompile Include="课堂练习.cpp" />
   </ItemGroup>

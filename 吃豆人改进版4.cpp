@@ -1,8 +1,4 @@
 //#include<bits/stdc++.h>
-//#include <climits>
-//#include <cstdlib>
-//#include <utility>
-//#include <vector>
 //#include <queue>
 //#define endl '\n'
 //#define int long long
@@ -169,205 +165,95 @@
 //    你的策略
 //    如果你需要写递归，可以在solve函数之前添加你的递归函数并在solve函数中调用。
 //*/
-//// 定义豆子的坐标结构体
-//struct Bean {
-//    int x, y;
+//
+///*  不要改动a数组的信息！
+//    a[i][j] = 0  时 为空地
+//    a[i][j] = 1  时 为人
+//    a[i][j] = 2  时 为豆子
+//    a[i][j] = 4  时 为墙
+//    a[i][j] = 8  时 为鬼
+//    a[i][j] = 10 时 为鬼和豆子
+//    不要改动person_x,person_y变量!
+//    person_x   是吃豆人的x坐标
+//    person_y   是吃豆人的y坐标
+//*/
+//// 定义方向：上下左右
+//const int dx[] = { -1, 1, 0, 0 };
+//const int dy[] = { 0, 0, -1, 1 };
+//
+//// 定义状态
+//struct State {
+//    int x, y, steps;
+//    State(int _x, int _y, int _steps) : x(_x), y(_y), steps(_steps) {}
 //};
 //
-//// 检查鬼是否在可怕范围内
-//bool is_ghost_nearby(int person_x, int person_y, int ghost_x, int ghost_y) {
-//    // 计算鬼和吃豆人的曼哈顿距离
-//    int distance = abs(person_x - ghost_x) + abs(person_y - ghost_y);
-//    // 如果距离小于等于2，则鬼在可怕范围内
-//    return distance <= 2;
-//}
+//// 修改后的 BFS 算法
+//char solve() {
+//    queue<State> q;
+//    bool visited[50][50];
+//    memset(visited, false, sizeof(visited));
 //
-//char solve()
-//{
-//    // 当前吃豆人的坐标
-//    int curr_x = person_x;
-//    int curr_y = person_y;
+//    // 初始化起始状态
+//    q.push(State(person_x, person_y, 0));
 //
-//    // 遍历地图，查找鬼的位置
-//    for (int i = 1; i <= 20; ++i) {
-//        for (int j = 1; j <= 40; ++j) {
-//            // 如果当前位置是鬼，并且在可怕范围内
-//            if (a[i][j] == 8 && is_ghost_nearby(curr_x, curr_y, i, j)) {
-//                // 尝试躲避鬼
-//                // 检查上方是否安全，是则移动上方
-//                if (a[curr_x - 1][curr_y] != 8 && a[curr_x - 1][curr_y] != 4) {
-//                    return 'U';
+//    // 开始 BFS
+//    while (!q.empty()) {
+//        State cur = q.front();
+//        q.pop();
+//
+//        // 判断是否找到目标状态（假设目标状态是吃到豆子的位置）
+//        if (a[cur.x][cur.y] == 2) {
+//            if (cur.x < person_x) return 'U';
+//            if (cur.x > person_x) return 'D';
+//            if (cur.y < person_y) return 'L';
+//            if (cur.y > person_y) return 'R';
+//        }
+//
+//        // 扩展当前状态的所有可能的下一步状态
+//        vector<State> next_states;
+//        for (int i = 0; i < 4; ++i) {
+//            int nx = cur.x + dx[i];
+//            int ny = cur.y + dy[i];
+//            // 判断是否越界或者是墙，如果是则继续下一个方向
+//            if (nx < 0 || nx >= szx || ny < 0 || ny >= szy || a[nx][ny] == 4 || a[nx][ny] == 8 || a[nx][ny] == 10) continue;
+//
+//            // 将新状态加入下一步状态列表
+//            next_states.push_back(State(nx, ny, cur.steps + 1));
+//        }
+//
+//        // 根据新状态的位置，选择距离鬼比较远且有豆子的方向
+//        sort(next_states.begin(), next_states.end(), [&](const State& a, const State& b) {
+//            if (a.steps != b.steps)
+//                return a.steps < b.steps; // 优先移动步数少的状态
+//            else {
+//                // 当步数相同时，选择距离鬼比较远且有豆子的方向
+//                if (a.x < person_x && b.x < person_x) {
+//                    return a.y < b.y; // 如果都在上方，选择 y 更小的方向
 //                }
-//                // 检查下方是否安全，是则移动下方
-//                else if (a[curr_x + 1][curr_y] != 8 && a[curr_x + 1][curr_y] != 4) {
-//                    return 'D';
+//                else if (a.x > person_x && b.x > person_x) {
+//                    return a.y < b.y; // 如果都在下方，选择 y 更小的方向
 //                }
-//                // 检查左方是否安全，是则移动左方
-//                else if (a[curr_x][curr_y - 1] != 8 && a[curr_x][curr_y - 1] != 4) {
-//                    return 'L';
+//                else if (a.y < person_y && b.y < person_y) {
+//                    return a.x < b.x; // 如果都在左方，选择 x 更小的方向
 //                }
-//                // 检查右方是否安全，是则移动右方
-//                else if (a[curr_x][curr_y + 1] != 8 && a[curr_x][curr_y + 1] != 4) {
-//                    return 'R';
+//                else if (a.y > person_y && b.y > person_y) {
+//                    return a.x < b.x; // 如果都在右方，选择 x 更小的方向
 //                }
-//                // 如果四个方向都有鬼或墙，随机选择一个方向移动
 //                else {
-//                    int op = rand() % 4;
-//                    if (op == 0) {
-//                        return 'U';
-//                    }
-//                    else if (op == 1) {
-//                        return 'D';
-//                    }
-//                    else if (op == 2) {
-//                        return 'L';
-//                    }
-//                    else {
-//                        return 'R';
-//                    }
+//                    // 否则，选择距离鬼比较远且有豆子的方向
+//                    return a.steps > b.steps;
 //                }
 //            }
+//            });
+//
+//        // 将下一步状态加入队列
+//        for (const auto& state : next_states) {
+//            q.push(state);
 //        }
 //    }
 //
-//    // 创建一个二维数组来记录豆子的状态，初始化为 false
-//    bool visited[20][40] = { false };
-//
-//    // 创建一个队列来存储待访问的豆子
-//    std::queue<Bean> beansQueue;
-//
-//    // 遍历地图，将所有豆子加入队列
-//    for (int i = 1; i <= 20; ++i) {
-//        for (int j = 1; j <= 40; ++j) {
-//            if (a[i][j] == 2) {
-//                beansQueue.push({ i, j });
-//            }
-//        }
-//    }
-//
-//    // 如果队列不为空，说明还有豆子未被访问
-//    if (!beansQueue.empty()) {
-//        // 创建一个数组来记录吃豆人到各个豆子的最短距离
-//        std::vector<std::vector<int>> distance(20, std::vector<int>(40, -1));
-//
-//        // 标记当前位置已经访问过
-//        visited[curr_x][curr_y] = true;
-//        distance[curr_x][curr_y] = 0;
-//
-//        // 创建一个变量来记录最近的豆子的距离和坐标
-//        int minDistance = INT_MAX;
-//        int minBean_x = -1;
-//        int minBean_y = -1;
-//
-//        // 创建一个变量来记录下一步的移动方向
-//        char nextMove = '\0';
-//
-//        // 创建一个变量来标记是否找到了可达的豆子
-//        bool foundBean = false;
-//
-//        // 使用广度优先搜索遍历地图，找到到达所有豆子的最短路径
-//        while (!beansQueue.empty()) {
-//            // 出队一个豆子
-//            Bean bean = beansQueue.front();
-//            beansQueue.pop();
-//
-//            // 获取当前豆子的坐标
-//            int bean_x = bean.x;
-//            int bean_y = bean.y;
-//
-//            // 计算当前豆子到吃豆人的距离
-//            int dist = distance[curr_x][curr_y] + abs(curr_x - bean_x) + abs(curr_y - bean_y);
-//
-//            // 更新到当前豆子的最短距离
-//            if (dist < minDistance) {
-//                minDistance = dist;
-//                minBean_x = bean_x;
-//                minBean_y = bean_y;
-//            }
-//
-//            // 将当前豆子标记为已访问
-//            visited[bean_x][bean_y] = true;
-//
-//            // 将当前豆子的周围豆子加入队列
-//            if (bean_x > 1 && !visited[bean_x - 1][bean_y]) {
-//                beansQueue.push({ bean_x - 1, bean_y });
-//                visited[bean_x - 1][bean_y] = true;
-//                distance[bean_x - 1][bean_y] = dist + 1;
-//            }
-//            if (bean_x < 20 && !visited[bean_x + 1][bean_y]) {
-//                beansQueue.push({ bean_x + 1, bean_y });
-//                visited[bean_x + 1][bean_y] = true;
-//                distance[bean_x + 1][bean_y] = dist + 1;
-//            }
-//            if (bean_y > 1 && !visited[bean_x][bean_y - 1]) {
-//                beansQueue.push({ bean_x, bean_y - 1 });
-//                visited[bean_x][bean_y - 1] = true;
-//                distance[bean_x][bean_y - 1] = dist + 1;
-//            }
-//            if (bean_y < 40 && !visited[bean_x][bean_y + 1]) {
-//                beansQueue.push({ bean_x, bean_y + 1 });
-//                visited[bean_x][bean_y + 1] = true;
-//                distance[bean_x][bean_y + 1] = dist + 1;
-//            }
-//        }
-//
-//        // 如果找到了最近的豆子，计算最优的移动方向
-//        if (minBean_x != -1 && minBean_y != -1) {
-//            // 根据最近豆子的坐标和当前吃豆人的坐标计算移动方向
-//            if (minBean_x < curr_x) {
-//                nextMove = 'U';
-//            }
-//            else if (minBean_x > curr_x) {
-//                nextMove = 'D';
-//            }
-//            else if (minBean_y < curr_y) {
-//                nextMove = 'L';
-//            }
-//            else if (minBean_y > curr_y) {
-//                nextMove = 'R';
-//            }
-//        }
-//
-//        // 如果找到了最优的移动方向，则返回该方向
-//        if (nextMove != '\0') {
-//            return nextMove;
-//        }
-//    }
-//
-//    // 如果没有豆子可供吃，按照原有的策略移动
-//
-//    // 检查上方是否有豆子，是则移动上方
-//    if (a[curr_x - 1][curr_y] == 2) {
-//        return 'U';
-//    }
-//    // 检查下方是否有豆子，是则移动下方
-//    else if (a[curr_x + 1][curr_y] == 2) {
-//        return 'D';
-//    }
-//    // 检查左方是否有豆子，是则移动左方
-//    else if (a[curr_x][curr_y - 1] == 2) {
-//        return 'L';
-//    }
-//    // 检查右方是否有豆子，是则移动右方
-//    else if (a[curr_x][curr_y + 1] == 2) {
-//        return 'R';
-//    }
-//    // 如果四个方向都没有豆子，则随机选择一个方向移动
-//    else {
-//        int op = rand() % 4;
-//        if (op == 0) {
-//            return 'U';
-//        }
-//        else if (op == 1) {
-//            return 'D';
-//        }
-//        else if (op == 2) {
-//            return 'L';
-//        }
-//        else {
-//            return 'R';
-//        }
-//    }
+//    // 如果找不到目标状态，则返回一个默认值
+//    return 'R';
 //}
 //
 //signed main() {
