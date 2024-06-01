@@ -11,3 +11,7 @@
 [CtrlMinder/LevOJ: OJ代码 (github.com)](https://github.com/CtrlMinder/LevOJ)
 
 [TFboy1/NUIST-Online-Judge-OJ-: NUIST2022OJ题库及答案（持续更新） (github.com)](https://github.com/TFboy1/NUIST-Online-Judge-OJ-)
+
+
+**请给我一个star鼓励我吧，点击右上角的这个图标**
+![image](https://github.com/TFboy1/OJ2024/assets/119146578/6beb60a1-11a6-4982-9a5d-1106a06445ad)
