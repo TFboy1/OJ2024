@@ -159,5 +159,8 @@
     <ClCompile Include="P1344 最长回文长度.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="P1849 乌龟棋.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
