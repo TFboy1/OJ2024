@@ -162,5 +162,11 @@
     <ClCompile Include="P1849 乌龟棋.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="P1268 连续子段的最大和.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="P1477 部分背包问题.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
