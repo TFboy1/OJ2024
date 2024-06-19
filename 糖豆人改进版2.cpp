@@ -191,7 +191,7 @@
 //
 //    // 寻找最近的豆子
 //    pair<int, int> nearestBean;
-//    int minDistance = INT_MAX;
+//    int minDistance = 101;
 //
 //    while (!q.empty()) {
 //        // 取出队列中的第一个位置
@@ -221,7 +221,7 @@
 //    }
 //
 //    // 如果没有找到豆子，返回停留
-//    if (minDistance == INT_MAX) return 'S';
+//    if (minDistance == 101) return 'S';
 //
 //    // 如果已经站在豆子上，则停留
 //    if (nearestBean.first == person_x && nearestBean.second == person_y) return 'S';

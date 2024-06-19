@@ -20,7 +20,7 @@
 //// Dijkstra's algorithm to find the shortest path from source to destination
 //int dijkstra(const vector<vector<Edge>>& graph, int source, int destination) {
 //    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
-//    vector<int> dist(graph.size(), INT_MAX);
+//    vector<int> dist(graph.size(), 101);
 //    pq.push({ 0, source });
 //    dist[source] = 0;
 //

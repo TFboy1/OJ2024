@@ -114,3 +114,44 @@
 //    cout << ans << endl;
 //    return 0;
 //}
+////#include <iostream>
+////#include <vector>
+////#include<cmath>
+////using namespace std;
+////int main() {
+////	int n, m, x;
+////	cin >> n >> m >> x;
+////	int u, v, w;
+////	vector<vector<vector<int>>> grid(n+1, vector<vector<int>>(n+1, vector<int>(n + 1, 101)));
+////	for (int i = 1; i < n; i++) {
+////	for (int j = 1; j < n; j++) {
+////		
+////			grid[i][j][0] = 101;
+////			grid[j][i][0] = 101;
+////		
+////		}
+////	}
+////		
+////	for (int i = 1; i <= m; i++) {
+////		cin >> u >> v >> w;
+////		grid[u][v][0] = w;
+////	}
+////	
+////	for (int k = 1; k <= n; k++) {
+////		for(int i=1;i<=n;i++)
+////			for (int j = 1; j <= n; j++) {
+////			
+////					grid[i][j][k] =min(grid[i][k][k-1]+grid[k][j][k-1],grid[i][j][k-1]);		
+////			}
+////	}
+////	int max = 0;
+////	for (int i = 1; i <= n; i++) {
+////		int temp = (grid[i][x][n - 1] + grid[x][i][n - 1]);
+////		if ( temp> max) {
+////			max = temp;
+////		}
+////	}
+////	cout << max << endl;
+////
+////	
+////}

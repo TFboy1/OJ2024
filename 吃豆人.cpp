@@ -171,7 +171,7 @@
 //{
 //    // 寻找最近的豆子作为目标
 //    pair<int, int> target;
-//    int minDist = INT_MAX;
+//    int minDist = 101;
 //
 //    for (int i = 1; i <= 20; ++i) {
 //        for (int j = 1; j <= 40; ++j) {
